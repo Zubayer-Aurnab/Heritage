@@ -9,7 +9,7 @@ const NavBar = () => {
                     <p>Sell</p>
                     <p>Service</p>
                 </div>
-                <div><img className='h-16 w-16 ' src={Logo} alt="" /></div>
+                <div><img className='h-20 w-20 ' src={Logo} alt="" /></div>
                 <div className='flex gap-10'>
                     <p>Manage Rentals</p>
                     <p>Sign in</p>
