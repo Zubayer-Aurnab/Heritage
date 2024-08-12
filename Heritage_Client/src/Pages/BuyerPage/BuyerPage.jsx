@@ -3,6 +3,7 @@ import FlatList from "../../Components/FlatList/FlatList";
 import PopularProperties from "../../Components/PopularProperties/PopularProperties";
 import Footer from "../../Components/Shared/Footer/Footer";
 import NavBar from "../../Components/Shared/NavBar/NavBar";
+import Testimonials from "../../Components/Testimonials/Testimonials";
 
 
 const BuyerPage = () => {
@@ -11,7 +12,10 @@ const BuyerPage = () => {
             <NavBar />
             <BuyBanner />
             <FlatList />
-            <PopularProperties />
+            <PopularProperties title={'Popular Properties'} />
+            <div className="h-[2px] bg-slate-200 w-[90%] mx-auto mt-20" />
+            <PopularProperties title={'New Listed  Properties'} />
+            <Testimonials />
             <Footer />
         </div>
     );

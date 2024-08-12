@@ -3,8 +3,8 @@ import { MdPlace } from "react-icons/md";
 const Card = () => {
     return (
         <div >
-            <div className="w-96 bg-[#F9FAFB]">
-                <img className="object-cover" src="https://images.adsttc.com/media/images/5be3/3a40/08a5/e549/e300/0315/newsletter/42442.jpg?1541618191" alt="" />
+            <div className=" bg-[#F9FAFB]">
+                <img className="object-cover h-96" src="https://images.adsttc.com/media/images/5be3/3a40/08a5/e549/e300/0315/newsletter/42442.jpg?1541618191" alt="" />
                 <div className="p-4">
                     <div className="flex justify-between mt-2">
                         <span className="bg-[#C5E2FF] rounded px-2 text-[14px]" > Apartment</span>
