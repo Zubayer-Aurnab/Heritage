@@ -9,14 +9,14 @@ import Testimonials from "../../Components/Testimonials/Testimonials";
 const BuyerPage = () => {
     return (
         <div>
-            <NavBar />
+
             <BuyBanner />
             <FlatList />
             <PopularProperties title={'Popular Properties'} />
             <div className="h-[2px] bg-slate-200 w-[90%] mx-auto mt-20" />
             <PopularProperties title={'New Listed  Properties'} />
             <Testimonials />
-            <Footer />
+
         </div>
     );
 };

@@ -3,6 +3,7 @@ import img1 from '../../assets/images/img1.jpg'
 import img2 from '../../assets/images/img2.jpg'
 
 import PlayBtn from '../PlayBtn/PlayBtn'
+import { Link } from 'react-router-dom';
 
 const PropertySection = () => {
     return (
@@ -27,11 +28,11 @@ const PropertySection = () => {
                 </div>
                 <h1 className='text-3xl lg:text-5xl  font-[Montserrat] font-bold my-6 lg:my-8'>Efficient and Transparent <br /> Home Buying Solutions</h1>
                 <p className=' text-base font-[Poppins] mb-10 text-[#667085]'>it is  a long  established fact that a reader will be distracted by the <br /> readable content of a page when looking at its layout</p>
-                <div className=''>
+                <Link to={'/buyers'} className=''>
                     <button className='bg-[#ECF5FF] text-[#0059B1]  font-[Poppins] py-3 px-5 rounded-[4px] flex items-center  gap-2'>
                         <IoSearchOutline className='text-2xl text-[#0059B1] ' /> Find Property
                     </button>
-                </div>
+                </Link>
             </div>
         </div>
     );

@@ -7,13 +7,18 @@ import { IoIosLogIn } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import useAxiosURL from '../../Hooks/useAxiosURL';
 
 const Login = () => {
+    const API = useAxiosURL()
+    const navigate = useNavigate()
+    const location = useLocation()
     const { GoogleAuth, LogInUser } = useAuth()
     const [Email, setEmail] = useState()
     const [Password, setPassword] = useState()
+
 
     const GoogleLogin = () => {
         GoogleAuth()
@@ -21,24 +26,21 @@ const Login = () => {
                 const userInfo = {
                     email: res?.user?.email,
                     name: res?.user?.displayName,
-                    photo: res?.user?.photoURL
+                    photo: res?.user?.photoURL,
+                    role: ""
                 }
                 console.log(userInfo)
-                toast.success("Log in successful")
-                // axiosPublic.post('/users', userInfo)
-                //     .then(res => {
-                //         console.log(res.data)
-                //         Swal.fire({
-                //             position: "center",
-                //             icon: "success",
-                //             title: "Registration successful",
-                //             showConfirmButton: false,
-                //             timer: 1500
-                //         });
-                //         navigate(location?.state ? location.state : '/')
-                //     })
+
+                API.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                        toast.success("Log in successful")
+                        navigate(location?.state ? location.state : '/')
+                    })
             })
-            .catch()
+            .catch(err => {
+                toast.error(`error: ${err.message}`)
+            })
     }
     const handelSubmit = (e) => {
         e.preventDefault()
@@ -53,8 +55,7 @@ const Login = () => {
                 setEmail('');
                 setPassword('');
                 toast.success("Log In successful")
-
-                // navigate(location?.state ? location.state : '/')
+                navigate(location?.state ? location.state : '/')
             })
             .catch(err => {
                 toast.error(`error: ${err.message}`)
@@ -63,7 +64,7 @@ const Login = () => {
     }
     return (
         <div>
-            <NavBar />
+            
             <div className='relative mb-72'>
                 <img className='h-[40vh] w-full object-cover' src={img1} alt="" />
                 <div className='bg-[#ECF5FF]  w-[50%] mx-auto p-8 absolute -bottom-52 left-1/2 transform -translate-x-1/2 rounded-lg shadow-xl z-50'>
@@ -100,7 +101,7 @@ const Login = () => {
                 </div>
             </div>
 
-            <Footer />
+           
         </div>
     );
 };

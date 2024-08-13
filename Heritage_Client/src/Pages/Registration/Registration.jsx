@@ -1,6 +1,6 @@
 
 import NavBar from "../../Components/Shared/NavBar/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Divider, Input } from "antd";
 import { IoIosLogIn } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
@@ -12,7 +12,11 @@ import './RG.css'
 import { useState } from "react";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
+import useAxiosURL from "../../Hooks/useAxiosURL";
 const Registration = () => {
+    const API = useAxiosURL()
+    const navigate = useNavigate()
+    const location = useLocation()
     const { GoogleAuth, createUser, UpdateUser } = useAuth()
     const [email, setEmail] = useState()
     const [Photo, setPhoto] = useState()
@@ -26,24 +30,21 @@ const Registration = () => {
                 const userInfo = {
                     email: res?.user?.email,
                     name: res?.user?.displayName,
-                    photo: res?.user?.photoURL
+                    photo: res?.user?.photoURL,
+                    role: ''
                 }
                 console.log(userInfo)
-                toast.success("Sign In successful")
-                // axiosPublic.post('/users', userInfo)
-                //     .then(res => {
-                //         console.log(res.data)
-                //         Swal.fire({
-                //             position: "center",
-                //             icon: "success",
-                //             title: "Registration successful",
-                //             showConfirmButton: false,
-                //             timer: 1500
-                //         });
-                //         navigate(location?.state ? location.state : '/')
-                //     })
+
+                API.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                        toast.success("sign in successful")
+                        navigate(location?.state ? location.state : '/')
+                    })
             })
-            .catch()
+            .catch(err => {
+                toast.error(`error: ${err.message}`)
+            })
     }
     const handelSubmit = (e) => {
         e.preventDefault()
@@ -64,41 +65,25 @@ const Registration = () => {
         createUser(email, Password).then(res => {
             UpdateUser(Name, Photo)
                 .then(res => {
-                    const user = { email, Name, Photo }
+                    const user = { email, name: Name, photo: Photo, role: "" }
                     console.log(user)
-                    toast.success(`Sign Up Successful`)
-                    // axiosPublic.post('/users', user)
-                    //     .then(res => {
-                    //         if (res.data.insertedId) {
-                    //             Swal.fire({
-                    //                 position: "center",
-                    //                 icon: "success",
-                    //                 title: "Registration successful",
-                    //                 showConfirmButton: false,
-                    //                 timer: 1500
-                    //             });
-                    //             navigate(location?.state ? location.state : '/')
-                    //         }
-                    //     })
+                    API.post('/users', user)
+                        .then(res => {
+                            console.log(res.data)
+                            toast.success("sign in successful")
+                            navigate(location?.state ? location.state : '/')
+                        })
 
                 })
-                .catch(err => {
-                    console.log(err)
-                })
-        }).catch(err => {
-            toast.error(`error: ${err.message}`)
-            // Swal.fire({
-            //     icon: "error",
-            //     title: `error: ${err.message}`,
-            //     text: `error: ${err.message}`,
-            //     footer: '<a href="#">Why do I have this issue?</a>'
-            // });
         })
+            .catch(err => {
+                toast.error(`error: ${err.message}`)
+            })
 
     }
     return (
         <div>
-            <NavBar />
+
             <div className='relative mb-96'>
                 <img className='h-[40vh] w-full object-cover' src={img1} alt="" />
                 <div className='bg-[#FDF0E7]  w-[50%] mx-auto p-8 absolute top-20 left-1/2 transform -translate-x-1/2 rounded-lg shadow-xl z-50'>
@@ -148,7 +133,7 @@ const Registration = () => {
                 </div>
             </div>
 
-            <Footer />
+
         </div>
     );
 };
